@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -26,6 +26,19 @@ def home():
     tasks = list(tasks_collection.find())
     return render_template("index.html", tasks=tasks)
 
+@app.route("/add", methods=["POST"])
+def add_task():
+
+    title = request.form.get("title")
+
+    if title.strip():
+
+        tasks_collection.insert_one({
+            "title": title,
+            "completed": False
+        })
+
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=True)

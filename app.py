@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from dotenv import load_dotenv
+from bson.objectid import ObjectId
 import os
 
 # Load environment variables
@@ -39,6 +40,31 @@ def add_task():
         })
 
     return redirect(url_for("home"))
+
+@app.route("/edit/<task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
+
+    task = tasks_collection.find_one({"_id": ObjectId(task_id)})
+
+    if request.method == "POST":
+
+        title = request.form.get("title")
+
+        completed = "completed" in request.form
+
+        tasks_collection.update_one(
+            {"_id": ObjectId(task_id)},
+            {
+                "$set": {
+                    "title": title,
+                    "completed": completed
+                }
+            }
+        )
+
+        return redirect(url_for("home"))
+
+    return render_template("edit.html", task=task)
 
 if __name__ == "__main__":
     app.run(debug=True)

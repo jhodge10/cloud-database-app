@@ -37,7 +37,15 @@
 
             <li>
 
+                {% if task.completed %}
+                    ✅
+                {% else %}
+                    ⬜
+                {% endif %}
+
                 {{ task.title }}
+
+                <a href="/edit/{{ task._id }}">Edit</a>
 
             </li>
 

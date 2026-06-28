@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <title>Edit Tasks</title>
+<title>Edit Tasks</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
@@ -20,38 +19,41 @@
 
 <form method="POST">
 
-    <input
-        type="text"
-        name="title"
-        value="{{ task.title }}"
-        required>
+<input
+type="text"
+name="title"
+value="{{ task.title }}"
+required>
 
-    <label>
+<label>
 
-        <input
-            type="checkbox"
-            name="completed"
+<input
+type="checkbox"
+name="completed"
 
-            {% if task.completed %}
-                checked
-            {% endif %}
-        >
+{% if task.completed %}
+checked
+{% endif %}
 
-        Completed!
+>
 
-    </label>
+Completed!
 
-    <button type="submit">
+</label>
 
-        Save Changes
+<button type="submit">
 
-    </button>
+Save Changes
+
+</button>
 
 </form>
 
-<br>
+<p>
 
-<a href="/">← Back to Tasks</a>
+<a href="/">← Back to Home</a>
+
+</p>
 
 </div>
 

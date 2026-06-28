@@ -37,24 +37,30 @@
 
             <li>
 
-                {% if task.completed %}
-                    ✅
-                {% else %}
-                    ⬜
-                {% endif %}
+                <div>
 
-                {{ task.title }}
+                    {% if task.completed %}
+                        <span class="completed">
+                            ✅ {{ task.title }}
+                        </span>
+                    {% else %}
+                        ⬜ {{ task.title }}
+                    {% endif %}
 
-                <a href="/edit/{{ task._id }}">Edit</a>
+                </div>
 
-|
+                <div class="actions">
 
-                <a href="/delete/{{ task._id }}"
-                    onclick="return confirm('Delete this task?')">
-                        Delete
-                </a>
+                    <a href="/edit/{{ task._id }}">Edit</a>
 
-            </li>
+                    <a href="/delete/{{ task._id }}"
+                        onclick="return confirm('Delete this task?')">
+                            Delete
+                    </a>
+
+                </div>
+
+             </li>
 
         {% endfor %}
 

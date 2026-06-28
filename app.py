@@ -66,5 +66,16 @@ def edit_task(task_id):
 
     return render_template("edit.html", task=task)
 
+@app.route("/delete/<task_id>")
+def delete_task(task_id):
+
+    tasks_collection.delete_one(
+        {
+            "_id": ObjectId(task_id)
+        }
+    )
+
+    return redirect(url_for("home"))
+
 if __name__ == "__main__":
     app.run(debug=True)

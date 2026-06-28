@@ -47,6 +47,13 @@
 
                 <a href="/edit/{{ task._id }}">Edit</a>
 
+|
+
+                <a href="/delete/{{ task._id }}"
+                    onclick="return confirm('Delete this task?')">
+                        Delete
+                </a>
+
             </li>
 
         {% endfor %}

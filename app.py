@@ -1,12 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 
+# Load environment variables
 load_dotenv()
 
 app = Flask(__name__)
 
+# MongoDB connection
 try:
     client = MongoClient(os.getenv("MONGO_URI"))
     client.admin.command("ping")
@@ -18,9 +20,12 @@ except Exception as e:
 db = client[os.getenv("DATABASE_NAME")]
 tasks_collection = db[os.getenv("COLLECTION_NAME")]
 
+
 @app.route("/")
 def home():
-    return "<h1>Cloud To-Do List Connected!</h1>"
+    tasks = list(tasks_collection.find())
+    return render_template("index.html", tasks=tasks)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
